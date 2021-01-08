@@ -6,6 +6,13 @@ SubHeading
 
   * list item 1
   * list item 2
+  
+```javascript
+var hello = function () {
+    // say hello
+    alert('Hello world!');
+}
+```
 
   This is a hyperlink to [Google](http://google.com).
 
