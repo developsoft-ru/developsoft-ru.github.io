@@ -31,7 +31,9 @@ procedure Form_Create;
 begin
    debug(FullScreenWidth); // максимальная ширина рабочей области экрана
    debug(FullScreenHeight) // максимальная высота рабочей области экрана (без панели задач)
-end;   ```
+end;   
+```
+
   
 ```javascript
 var hello = function () {
