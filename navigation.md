@@ -1,5 +1,5 @@
 # DEVELOP-SOFT
 
-[Главная](index.md)
+[Главная](home.md)
 [About](about.md)
 [Download](download.md)
