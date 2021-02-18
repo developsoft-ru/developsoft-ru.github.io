@@ -9,3 +9,5 @@
   
 
 [Обратная связь](contacts.md)
+
+[gimmick:theme (inverse: true)](flatly)
