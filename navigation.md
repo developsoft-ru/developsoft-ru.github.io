@@ -10,4 +10,4 @@
 
 [Обратная связь](contacts.md)
 
-[gimmick:theme](materia)
+[gimmick:theme](cerulean)
