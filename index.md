@@ -5,39 +5,17 @@ Develop-Soft
 
 <p><br></p><pre><code>procedure Form_Create;<br>begin<br> WS:=THTTPServer.Create;<br> WS.IOTimeout:=1000;<br> WS.OnRequest := @Request;<br> WS.Start;<br>end;  </code></pre>
 
-```java
-var WS:THTTPServer;
-
-UserAuth:boolean;
-
-
-
-procedure Request(Sender: TObject; var ARequest: TFPHTTPConnectionRequest; var AResponse : TFPHTTPConnectionResponse);
-begin
-  if ARequest.URL = '/' then
-  begin
-  AResponse.Code := 302;
-  if UserAuth then
-  AResponse.Location := '/index' else
-  AResponse.Location := '/login';
-  end;
-  UserAuth := true;
-
-
-  AResponse.SendContent;
-end;
-
-
-procedure Form_Create;
-begin
- WS:=THTTPServer.Create;
- WS.IOTimeout:=1000;
- WS.OnRequest := @Request;
- WS.Start;
-end;
-
-procedure Form_Destroy;
-begin
- WS.Free;
-end;
-```
+<ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Cras justo odio
+    <span class="badge badge-primary badge-pill">14</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Dapibus ac facilisis in
+    <span class="badge badge-primary badge-pill">2</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Morbi leo risus
+    <span class="badge badge-primary badge-pill">1</span>
+  </li>
+</ul>
