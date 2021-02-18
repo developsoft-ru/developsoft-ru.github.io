@@ -1,4 +1,4 @@
-# DEVELOP-SOFT
+# <i>D</i>EVELOP-SOFT
 
 [Главная](index.md)
 
