@@ -10,4 +10,4 @@
 
 [Обратная связь](contacts.md)
 
-[gimmick:theme (inverse: true)](flatly)
+[gimmick:theme (inverse: true)](cerulean)
