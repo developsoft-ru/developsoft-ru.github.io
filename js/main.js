@@ -27,7 +27,7 @@ function include(url) {
         document.getElementsByTagName('head')[0].appendChild(script);
     }
 
-include('head.js');
+include('js/head.js');
 
    
 
