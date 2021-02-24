@@ -17,7 +17,7 @@ var sections = document.getElementsByTagName('section');
         if (sections[sections.length-1].innerText.indexOf('with Mobirise'))
 		{	sections[sections.length-1].innerHTML = '';	}
 		
-VK.init({apiId: 7427840, onlyWidgets: true});
+VK.init({apiId: 7771928, onlyWidgets: true});
 
 
 for (const h4 of document.querySelectorAll("h4")) {
