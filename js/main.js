@@ -1,4 +1,14 @@
+function include(el,url,to) {
+        var element = document.createElement(el);
+        element.src = url;
+        document.getElementsByTagName(to)[0].appendChild(element);
+    }
+	
+include('script','js/head.js','head');
+
 window.onload = function(){ 
+
+include('script','js/body_end.js','body');
 
 //var vk = $x('//h4[contains(text(),"[vk/]")]')[0];
 //vk.innerHTML = '<div id="vk_comments"></div><script type="text/javascript">VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});</script>';
@@ -20,14 +30,9 @@ var sections = document.getElementsByTagName('section');
 }
 
 
-function include(el,url,to) {
-        var element = document.createElement(el);
-        element.src = url;
-        document.getElementsByTagName(to)[0].appendChild(element);
-    }
 
-include('script','js/head.js','head');
-include('script','js/body_end.js','body');
+
+
 
 
    
