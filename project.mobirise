@@ -2141,7 +2141,7 @@
               "background-image": "url(@bg-value)"
             },
             ".mbr-section-subtitle": {
-              "color": "#f2f2f2"
+              "color": "#ffffff"
             }
           },
           "_name": "content4",
