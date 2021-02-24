@@ -19,6 +19,15 @@ var sections = document.getElementsByTagName('section');
 		
 VK.init({apiId: 7427840, onlyWidgets: true});
 
-// тут сообразить div c id vk_comments
+
+var h4 = Array.prototype.slice.call(document.querySelectorAll("h4"));
+var matches = h4.filter(filterElements);
+console.log(matches);
+function filterElements(element){
+    return element.textContent === "[vk/]";
+}
+matches[0].parentElement.id = 'vk_comments';
+
+
 
 VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
