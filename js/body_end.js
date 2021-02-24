@@ -22,6 +22,7 @@ VK.init({apiId: 7771941, onlyWidgets: true});
 for (const h4 of document.querySelectorAll("h4")) {
   if (h4.textContent.includes("[vk_comments]")) {
     if(h4.parentElement != null) {
+	 
 	 // h4.parentElement.innerText = '';
       h4.parentElement.id = 'vk_comments';
 	}
