@@ -10,8 +10,7 @@ if (kotletopriemnik != null) {
 }
 
 
-
-
+// Комменты VK <
 			
 var sections = document.getElementsByTagName('section');
         if (sections[sections.length-1].innerText.indexOf('with Mobirise'))
@@ -21,13 +20,17 @@ VK.init({apiId: 7771941, onlyWidgets: true});
 
 
 for (const h4 of document.querySelectorAll("h4")) {
-  if (h4.textContent.includes("[vk/]")) {
+  if (h4.textContent.includes("[vk_comments]")) {
     if(h4.parentElement != null) {
+	  h4.parentElement.innerHTML = '';
       h4.parentElement.id = 'vk_comments';
 	}
   }
 }
 
-
-
 VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+
+// Комменты VK >
+
+
+
