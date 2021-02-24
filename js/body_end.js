@@ -23,6 +23,7 @@ for (const h4 of document.querySelectorAll("h4")) {
   if (h4.textContent.includes("[vk_comments]")) {
     if(h4.parentElement != null) {
       h4.parentElement.id = 'vk_comments';
+	  h4.parentElement.style = 'margin-top:1em;margin-bottom:1em;'
 	}
   }
 }

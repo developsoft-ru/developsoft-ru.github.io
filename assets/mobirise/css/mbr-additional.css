@@ -2200,7 +2200,10 @@ a {
 .cid-spXsgTevEK {
   padding-top: 2rem;
   padding-bottom: 2rem;
-  background-image: url("../../../assets/images/background1.jpg");
+  background-color: #ffffff;
+}
+.cid-spXsgTevEK .mbr-section-subtitle {
+  color: #f2f2f2;
 }
 .cid-sprBclvFYo {
   z-index: 1000;
