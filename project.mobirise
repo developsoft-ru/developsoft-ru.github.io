@@ -66,11 +66,11 @@
     "sitemapSwitcherAuto": "on",
     "siteUrl": "https://develop-soft.tk",
     "gdpr": false,
-    "google-analytics": "<script src=\"https://vk.com/js/api/openapi.js?168\" type=\"text/javascript\"></script>\n\n<script type=\"text/javascript\">VK.init({apiId: 7769944, onlyWidgets: true});</script>\n\n<script src=\"script.js\"></script>",
+    "google-analytics": "<script src=\"script.js\"></script>",
     "robotsText": "User-agent: *\nDisallow: /cgi-bin\n",
     "cookiesAlert": false,
     "language": "ru",
-    "mbrsiteDomain": "vkklcsnsep"
+    "mbrsiteDomain": "4as5i0z9yz"
   },
   "pages": {
     "index.html": {
