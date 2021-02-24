@@ -20,8 +20,6 @@ if (kotletopriemnik != null) {
 var sections = document.getElementsByTagName('section');
         if (sections[sections.length-1].innerText.indexOf('with Mobirise'))
 		{	sections[sections.length-1].innerHTML = '';	}
-		
-
 		  
 }
    
