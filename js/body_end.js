@@ -20,13 +20,13 @@ var sections = document.getElementsByTagName('section');
 VK.init({apiId: 7427840, onlyWidgets: true});
 
 
-var h4 = Array.prototype.slice.call(document.querySelectorAll("h4"));
-var matches = h4.filter(filterElements);
-console.log(matches);
-function filterElements(element){
-    return element.textContent === "[vk/]";
+for (const h4 of document.querySelectorAll("h4")) {
+  if (h4.textContent.includes("[vk/]")) {
+    h4.tagName = 'div';
+    h4.id = 'vk_comments';
+    
+  }
 }
-matches[0].parentElement.id = 'vk_comments';
 
 
 
