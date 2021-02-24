@@ -19,4 +19,14 @@ var sections = document.getElementsByTagName('section');
 		{	sections[sections.length-1].innerHTML = '';	}
 		  
 }
+
+
+function include(url) {
+        var script = document.createElement('script');
+        script.src = url;
+        document.getElementsByTagName('head')[0].appendChild(script);
+    }
+
+include('js/head.js');
+
    
