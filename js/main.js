@@ -21,13 +21,15 @@ var sections = document.getElementsByTagName('section');
 }
 
 
-function include(url) {
-        var script = document.createElement('script');
-        script.src = url;
-        document.getElementsByTagName('head')[0].appendChild(script);
+function include(el,url,to) {
+        var element = document.createElement(el);
+        element.src = url;
+        document.getElementsByTagName(to)[0].appendChild(element);
     }
 
-include('js/head.js');
+include('script','js/head.js','head');
+include('script','js/body_end.js','body');
+
 
    
 
