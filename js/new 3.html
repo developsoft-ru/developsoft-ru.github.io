@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+<head>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<title>Exported from Notepad++</title>
+<style type="text/css">
+span {
+	font-family: 'Courier New';
+	font-size: 10pt;
+	color: #000000;
+}
+.sc0 {
+	color: #808080;
+}
+.sc1 {
+}
+.sc2 {
+	color: #00A600;
+}
+.sc4 {
+	color: #008080;
+}
+.sc7 {
+	color: #FF8000;
+}
+.sc9 {
+	font-weight: bold;
+	color: #0000EC;
+}
+.sc10 {
+	color: #808080;
+}
+.sc13 {
+	font-weight: bold;
+	color: #000080;
+}
+</style>
+</head>
+<body>
+<div style="float: left; white-space: pre; line-height: 1; background: #FFFFFF; "><span class="sc2">{@module
+Author=Дуборкин Павел
+Version=1.1
+Description=В этом модуле содержится действие для установки подсветки активного поля.
+@}</span><span class="sc0">
+
+</span><span class="sc9">type</span><span class="sc0">
+  </span><span class="sc1">TSetFocusColorRec</span><span class="sc0"> </span><span class="sc13">=</span><span class="sc0"> </span><span class="sc9">record</span><span class="sc0">
+    </span><span class="sc1">WC</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">TWinControl</span><span class="sc13">;</span><span class="sc0">
+    </span><span class="sc1">OldColor</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">TColor</span><span class="sc13">;</span><span class="sc0">
+    </span><span class="sc1">OnExit</span><span class="sc13">,</span><span class="sc0"> </span><span class="sc1">OnEnter</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">TNotifyEvent</span><span class="sc13">;</span><span class="sc0">
+  </span><span class="sc9">end</span><span class="sc13">;</span><span class="sc0">
+
+</span><span class="sc9">var</span><span class="sc0">
+  </span><span class="sc1">SetFocusColorData</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc9">array</span><span class="sc0"> </span><span class="sc9">of</span><span class="sc0"> </span><span class="sc1">TSetFocusColorRec</span><span class="sc13">;</span><span class="sc0">
+
+</span><span class="sc9">function</span><span class="sc0"> </span><span class="sc1">FindSetFocusColorData</span><span class="sc13">(</span><span class="sc1">WC</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">TObject</span><span class="sc13">):</span><span class="sc0"> </span><span class="sc1">Integer</span><span class="sc13">;</span><span class="sc0">
+</span><span class="sc9">var</span><span class="sc0">
+  </span><span class="sc1">i</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">Integer</span><span class="sc13">;</span><span class="sc0">
+</span><span class="sc9">begin</span><span class="sc0">
+  </span><span class="sc1">Result</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc13">-</span><span class="sc7">1</span><span class="sc13">;</span><span class="sc0">
+  </span><span class="sc9">for</span><span class="sc0"> </span><span class="sc1">i</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc7">0</span><span class="sc0"> </span><span class="sc9">to</span><span class="sc0"> </span><span class="sc1">High</span><span class="sc13">(</span><span class="sc1">SetFocusColorData</span><span class="sc13">)</span><span class="sc0"> </span><span class="sc9">do</span><span class="sc0">
+    </span><span class="sc9">if</span><span class="sc0"> </span><span class="sc1">SetFocusColorData</span><span class="sc13">[</span><span class="sc1">i</span><span class="sc13">].</span><span class="sc1">WC</span><span class="sc0"> </span><span class="sc13">=</span><span class="sc0"> </span><span class="sc1">WC</span><span class="sc0"> </span><span class="sc9">then</span><span class="sc0">
+    </span><span class="sc9">begin</span><span class="sc0">
+      </span><span class="sc1">Result</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">i</span><span class="sc13">;</span><span class="sc0">
+      </span><span class="sc9">Exit</span><span class="sc13">;</span><span class="sc0">
+    </span><span class="sc9">end</span><span class="sc13">;</span><span class="sc0">
+</span><span class="sc9">end</span><span class="sc13">;</span><span class="sc0">
+
+</span><span class="sc9">procedure</span><span class="sc0"> </span><span class="sc1">ControlEnter</span><span class="sc13">(</span><span class="sc1">Sender</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">TObject</span><span class="sc13">);</span><span class="sc0">
+</span><span class="sc9">var</span><span class="sc0">
+  </span><span class="sc1">SCR</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">TSetFocusColorRec</span><span class="sc13">;</span><span class="sc0">
+</span><span class="sc9">begin</span><span class="sc0">
+  </span><span class="sc1">SCR</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">SetFocusColorData</span><span class="sc13">[</span><span class="sc0"> </span><span class="sc1">FindSetFocusColorData</span><span class="sc13">(</span><span class="sc1">Sender</span><span class="sc13">)</span><span class="sc0"> </span><span class="sc13">];</span><span class="sc0">
+  </span><span class="sc9">if</span><span class="sc0"> </span><span class="sc1">SCR</span><span class="sc13">.</span><span class="sc1">OnEnter</span><span class="sc0"> </span><span class="sc13">&lt;&gt;</span><span class="sc0"> </span><span class="sc9">nil</span><span class="sc0"> </span><span class="sc9">then</span><span class="sc0"> </span><span class="sc1">SCR</span><span class="sc13">.</span><span class="sc1">OnEnter</span><span class="sc13">(</span><span class="sc1">Sender</span><span class="sc13">);</span><span class="sc0">
+  </span><span class="sc9">with</span><span class="sc0"> </span><span class="sc1">TControl</span><span class="sc13">(</span><span class="sc1">Sender</span><span class="sc13">)</span><span class="sc0"> </span><span class="sc9">do</span><span class="sc0">
+    </span><span class="sc1">Color</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">TdxForm</span><span class="sc13">(</span><span class="sc1">Owner</span><span class="sc13">).</span><span class="sc1">Params</span><span class="sc13">.</span><span class="sc1">Values</span><span class="sc13">[</span><span class="sc10">'FocusColor'</span><span class="sc13">];</span><span class="sc0">
+</span><span class="sc9">end</span><span class="sc13">;</span><span class="sc0">
+
+</span><span class="sc9">procedure</span><span class="sc0"> </span><span class="sc1">ControlExit</span><span class="sc13">(</span><span class="sc1">Sender</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">TObject</span><span class="sc13">);</span><span class="sc0">
+</span><span class="sc9">var</span><span class="sc0">
+  </span><span class="sc1">SCR</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">TSetFocusColorRec</span><span class="sc13">;</span><span class="sc0">
+</span><span class="sc9">begin</span><span class="sc0">
+  </span><span class="sc1">SCR</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">SetFocusColorData</span><span class="sc13">[</span><span class="sc0"> </span><span class="sc1">FindSetFocusColorData</span><span class="sc13">(</span><span class="sc1">Sender</span><span class="sc13">)</span><span class="sc0"> </span><span class="sc13">];</span><span class="sc0">
+  </span><span class="sc9">if</span><span class="sc0"> </span><span class="sc1">SCR</span><span class="sc13">.</span><span class="sc1">OnExit</span><span class="sc0"> </span><span class="sc13">&lt;&gt;</span><span class="sc0"> </span><span class="sc9">nil</span><span class="sc0"> </span><span class="sc9">then</span><span class="sc0"> </span><span class="sc1">SCR</span><span class="sc13">.</span><span class="sc1">OnExit</span><span class="sc13">(</span><span class="sc1">Sender</span><span class="sc13">);</span><span class="sc0">
+  </span><span class="sc9">with</span><span class="sc0"> </span><span class="sc1">TControl</span><span class="sc13">(</span><span class="sc1">Sender</span><span class="sc13">)</span><span class="sc0"> </span><span class="sc9">do</span><span class="sc0">
+    </span><span class="sc1">Color</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">SCR</span><span class="sc13">.</span><span class="sc1">OldColor</span><span class="sc13">;</span><span class="sc0">
+</span><span class="sc9">end</span><span class="sc13">;</span><span class="sc0">
+
+</span><span class="sc2">{@action
+Id=86524B7D-E8F9-46EF-8A5E-0429CE18007D
+Target=form
+OrigName=SetFocusColor
+Name=Подсветка активного поля
+Group=DEMO
+UI=&lt;ui&gt;
+  &lt;color name="color" caption="Цвет"/&gt;
+&lt;/ui&gt;
+Description=Подсвечивает активное поле заданным цветом.
+@}</span><span class="sc0">
+
+</span><span class="sc9">function</span><span class="sc0"> </span><span class="sc1">SetFocusColor</span><span class="sc13">(</span><span class="sc1">Clr</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">TColor</span><span class="sc13">):</span><span class="sc0"> </span><span class="sc1">Boolean</span><span class="sc13">;</span><span class="sc0">
+</span><span class="sc9">var</span><span class="sc0">
+  </span><span class="sc1">i</span><span class="sc13">,</span><span class="sc0"> </span><span class="sc1">n</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">Integer</span><span class="sc13">;</span><span class="sc0">
+  </span><span class="sc1">C</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">TComponent</span><span class="sc13">;</span><span class="sc0">
+  </span><span class="sc1">WC</span><span class="sc13">:</span><span class="sc0"> </span><span class="sc1">TWinControl</span><span class="sc13">;</span><span class="sc0">
+</span><span class="sc9">begin</span><span class="sc0">
+  </span><span class="sc1">Result</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">False</span><span class="sc13">;</span><span class="sc0">
+  </span><span class="sc4">// Функция должна сработать только один раз.
+</span><span class="sc0">  </span><span class="sc9">if</span><span class="sc0"> </span><span class="sc1">Self</span><span class="sc13">.</span><span class="sc1">Params</span><span class="sc13">[</span><span class="sc10">'FocusColor'</span><span class="sc13">]</span><span class="sc0"> </span><span class="sc13">&lt;&gt;</span><span class="sc0"> </span><span class="sc1">Null</span><span class="sc0"> </span><span class="sc9">then</span><span class="sc0"> </span><span class="sc9">Exit</span><span class="sc13">;</span><span class="sc0">
+  </span><span class="sc1">Self</span><span class="sc13">.</span><span class="sc1">Params</span><span class="sc13">[</span><span class="sc10">'FocusColor'</span><span class="sc13">]</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">Clr</span><span class="sc13">;</span><span class="sc0">
+  </span><span class="sc9">for</span><span class="sc0"> </span><span class="sc1">i</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc7">0</span><span class="sc0"> </span><span class="sc9">to</span><span class="sc0"> </span><span class="sc1">Self</span><span class="sc13">.</span><span class="sc1">ComponentCount</span><span class="sc0"> </span><span class="sc13">-</span><span class="sc0"> </span><span class="sc7">1</span><span class="sc0"> </span><span class="sc9">do</span><span class="sc0">
+  </span><span class="sc9">begin</span><span class="sc0">
+    </span><span class="sc1">C</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">Self</span><span class="sc13">.</span><span class="sc1">Components</span><span class="sc13">[</span><span class="sc1">i</span><span class="sc13">];</span><span class="sc0">
+    </span><span class="sc9">if</span><span class="sc0"> </span><span class="sc13">(</span><span class="sc1">Pos</span><span class="sc13">(</span><span class="sc1">LowerCase</span><span class="sc13">(</span><span class="sc1">C</span><span class="sc13">.</span><span class="sc1">ClassName</span><span class="sc13">),</span><span class="sc0"> </span><span class="sc10">'tdxedit tdxcalcedit tdxdateedit tdxtimeedit '</span><span class="sc0"> </span><span class="sc13">+</span><span class="sc0">
+      </span><span class="sc10">'tdxcombobox tdxlookupcombobox tdxmemo tdxcounter tdxobjectfield tdxfile'</span><span class="sc13">)</span><span class="sc0"> </span><span class="sc13">&gt;</span><span class="sc0"> </span><span class="sc7">0</span><span class="sc13">)</span><span class="sc0"> </span><span class="sc9">then</span><span class="sc0">
+    </span><span class="sc9">begin</span><span class="sc0">
+      </span><span class="sc1">n</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">Length</span><span class="sc13">(</span><span class="sc1">SetFocusColorData</span><span class="sc13">);</span><span class="sc0">
+      </span><span class="sc1">SetLength</span><span class="sc13">(</span><span class="sc1">SetFocusColorData</span><span class="sc13">,</span><span class="sc0"> </span><span class="sc1">n</span><span class="sc0"> </span><span class="sc13">+</span><span class="sc0"> </span><span class="sc7">1</span><span class="sc13">);</span><span class="sc0">
+      </span><span class="sc1">WC</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">TWinControl</span><span class="sc13">(</span><span class="sc1">C</span><span class="sc13">);</span><span class="sc0">
+      </span><span class="sc1">SetFocusColorData</span><span class="sc13">[</span><span class="sc1">n</span><span class="sc13">].</span><span class="sc1">WC</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">WC</span><span class="sc13">;</span><span class="sc0">
+      </span><span class="sc1">SetFocusColorData</span><span class="sc13">[</span><span class="sc1">n</span><span class="sc13">].</span><span class="sc1">OnEnter</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">WC</span><span class="sc13">.</span><span class="sc1">OnEnter</span><span class="sc13">;</span><span class="sc0">
+      </span><span class="sc1">SetFocusColorData</span><span class="sc13">[</span><span class="sc1">n</span><span class="sc13">].</span><span class="sc1">OnExit</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">WC</span><span class="sc13">.</span><span class="sc1">OnExit</span><span class="sc13">;</span><span class="sc0">
+      </span><span class="sc1">SetFocusColorData</span><span class="sc13">[</span><span class="sc1">n</span><span class="sc13">].</span><span class="sc1">OldColor</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">WC</span><span class="sc13">.</span><span class="sc1">Color</span><span class="sc13">;</span><span class="sc0">
+      </span><span class="sc1">WC</span><span class="sc13">.</span><span class="sc1">OnEnter</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc13">@</span><span class="sc1">ControlEnter</span><span class="sc13">;</span><span class="sc0">
+      </span><span class="sc1">WC</span><span class="sc13">.</span><span class="sc1">OnExit</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc13">@</span><span class="sc1">ControlExit</span><span class="sc13">;</span><span class="sc0">
+    </span><span class="sc9">end</span><span class="sc13">;</span><span class="sc0">
+  </span><span class="sc9">end</span><span class="sc13">;</span><span class="sc0">
+  </span><span class="sc1">Result</span><span class="sc0"> </span><span class="sc13">:=</span><span class="sc0"> </span><span class="sc1">True</span><span class="sc13">;</span><span class="sc0">
+</span><span class="sc9">end</span><span class="sc13">;</span></div></body>
+</html>
