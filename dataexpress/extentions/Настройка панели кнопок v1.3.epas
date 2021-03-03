@@ -1,0 +1,316 @@
+{@module
+author=Develop-Soft [ https://forum.develop-soft.ru ]
+version=1.3
+description=Кастомизация интерфейса
+Действия:
+1. Настройка панели кнопок в главном окне
+
+Изменения:
+v 1.0 от 17.08.2019 - выход первой версии
+v 1.1 от 18.08.2019 - добавлена загрузка иконок из папки.
+v 1.2 от 23.09.2019 - добавлен индикатор установленного фильтра.
+v 1.3 от 12.02.2020 - панель кнопок при нахождении в простой форме становится видимой, если есть активные кнопки.
+...
+@}
+
+const
+
+Std24_ico0 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABm0lEQVR4nLXSTyiDcRzH8Z3k7iS3lQxl/h4kIsnBjcPyP1rJv5QllIwaB5rkMCnlTyEktRnNvzIiiRwI0dBGSg5Ty2H4+FpZnp5nPM/vx1Ofy/Pn9e7peVQAVLwHdtKM2Eg1is5/2rwBOFOBtRRgKRlYSBZg3AFsErxM8F0NcE2b1AIjCUGQK4ANwm1JBOuBM9pxNbBPM8cDPXHgCgRxF8EnhB5UAtsVwHo5YC8D2mMolGhkCkjiTsIdBFtLgfkSoF+L25bYQcUBuTh6At9BrSigEM8LPCM3wILLDrDisgI8+K8BXvzHgGeoCd6Vfi48ZOALf7uc4sIlA09jpVtf+LtrBq+nE8y4KOCdKwx7Xu5+/Y6/7FnobfqYcFHAZ9O3SeGP0524HzYoxkUB/2GvOxTuHmgMTAkuCFzNV2hunIN/igsCdrNu1WppxsWiSYR7BhqYcEGgoTjT36EvwGxXFY7oN32w1PmvTEXnjvrscbovlwUXBOLUkWjVpftGa7N2DfkaA13LoEXTIlhxQYCOHJqWFkUL50ElA/+5D+KKIHblgEynAAAAAElFTkSuQmCC';
+Std24_ico1 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAIAAABvFaqvAAAABnRSTlMAAAAAAABupgeRAAACaUlEQVR4nGNgwAFs5qkE79YJP2gIR0AuUBCXepwAqGfNh7xz/7vgaP2nInIMMpoht+pDXv09ITgquCwCFCTLoHf5LQ8k4aj4kiSZBq14UwAxovmBZOM9ydzz5Bq07E0BxIi6O5I1t6UzTkuTa9Cr3Lo70kAjqm9LV9yUTjlBrkELnuZV3gQaIVN2Q6bkmkzcYbxeA8YoLgQ0CGhE8TWZwqsyBZdBBin3COFCDI7ztPf+z1n83mfRB7/57/znvfOf89Z/9uvAWS+CC65KQIzIuyyXe1Eu47xs4hmZ/schvY+Duh8FdT4I6ngQ1HY3qOtRKMildrM1l3/xL78lUnlLvPyGeNl1icIrEkAj8q9IFlyWBhqRfVEu84JcxgW5tHNyKWdBZsWflI49KR19XDrqmHTEMSApr9YnxGA9TXPpp+BSoBHggCi+CvJI3mWZXFQjUs/JJ5+VTzgtH3daPvakfOwJ+egT8kAjIo7J+x9QVO4WYrCYrLHoQyjQFQgjLqIacVY+CWLESZAR0WAjwsFGhB+VDz2qCDRIoV2IwXSCxvy3obkXJSABgWxEMoYRECfAjQg+DERyQINkm4UYTHrVK865+W6RxkQ1p2OQjXBaJw1EmMqAgjINAgyazQoypVKYiDubA2gQsiuAGoCCuBDO9AU0C2gQyBfHQL4IPawIMYjklA00qOdqPjwggg7J2a+XIdOg9kt5ECMCDin6H1K0W0uuQW0X8iBGAOMFiGxWk2tQy8U8iBG+BxR99ilaryLboAt5ECO8wMhyBbkGdVwq8j2sBETeh0DIeo0smQYBEX8+NxDxghH+9AIATMSE9025mmIAAAAASUVORK5CYII=';
+Std24_ico2 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADrklEQVR4nN2VW0hUURSGz1wcfdaiiKQe8iWihx4iggoqS7tqoWk3KCqo1CAjKMobXRBFCbJ7DaVoZXfN6KrlaBeNarRyTGfmzIyembHRhN7//n1AccbjWFAvDSzOnNn/+v69lmtvJQDSv4jhT+jCa0ma3iRJDeI5HiScVtNACN/FxroHGxthMZnkcCYqPCLC6a++ida4OHeodpSBELyJjnYFqm9goLYGcnExLARomQzB7TlH8S03B935eWgO2VCQgVh4P3OmZ+BWNfrv3YG//Cp8DJcwMZmCTFS4weB05OaiM2MvPqWno23XLgiz5qioYZMgA9HHQF0d+h/WqHDvpYvwnilTo6e4CM1Go2oyBJcL8tGdmYkvaWmwrluH9ytWoD0rE9b16yFYowzqmfhKkpx2JvZVlKtgpbQEvSdPwFtUiJ6iIlgIbtTrnZ6CAsj79qFzwwZ0JCWhLTER7RvTYTt4EA16vVyvVcGQCcPpLCyE78I5KIT35udCOXwIinjSpOf4cfQQ7iC8m3Ab4bY0fj9yBPU63TB8zCkSgqc6ndNTWgp/SbEK783eDyVjD3wHsuHNyoI7NRUy4Y7EBDhSU+A6dgzPRux83HPwiMInbIWv7DR8BXnw7t0N784d8G/eBCUlBcratfAkLIdHfGdVz4xG+dHvnoORJo85dn3nzyHA6fBt3QI/gf41a+Aj3JucjO+nTuFxZKRLCz6uwV0m1bKn9pUr0btsGQKclh/bt2GQlQxwJPszMuDPy0OdweC6+6cGIuG+JMkd8fGwT54M2WCAotejjxHQ6dSneHdPnAjH6tV4YDDIWiaaBkLIkK1LlqBj6lR0GY1w08BH4GBMDH5OmIAfNBHv4nc73ztXrcJ9DZNRBlUUVHNMWxctwsfYWFhNJnTSQFTgJ8jBihxLl2KQVXlpIH4X659ZSRtbeZsmVWONqVi4TrhlwQK8njYNbwj/wPgaEQEn4TaCb3CyrnOEbYsXQ5kyBXbCxbrQtbC6loQE3OT9VKV10Cp5vB/GxaFxzhy8iIqCJTISrUxsZ2Ib4VWEi0QRlTSxssoutlBUKXRC3zRjBp7PnYtKravCzMRyJjZwdy+4uwaavCW8lX+LCl4R5hGlq1pW2zJ/Pj7RpJlwy6RJaOJGKsgwj3VViIWrFNQvXIiX3E0Tza6FwIO0oqXz5uHtrFmwCC3H2jzeVSEEl2lSO3s2zOynFjxIS5MatvZKCDzsOThL4UX28exv/MsMpw17kv9G/D+fX90GfHnSdwAcAAAAAElFTkSuQmCC';
+Std24_ico3 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEhUlEQVR4nK2UaUzTdxjHXfbKV3uzI3u3LcF3JI7JYjamoANBDY5pUa6FyCFnQcjEiAXKsUCgylUJG5RyQ8Fy03LIVaBAsYAtVwvI1XLaQrlb4Ltfu5jMgUIy/snz5pfneT6/3/f/fZ5TAE4dFsbGZp+RuOVAcXvg6uKT43k3sMzX6wEvkBpad5+Ej9fvNe6u1BJnB88wkndRn39Yn0Obnz9nbmp1yfZ+u0DYNvFaCeWcCuqVTWxsarG2vo2J13OQDk1gVrGEnR0dZmeVMxXltZ3mZtZe586affdeQEoSyygmKpEjFg8tC9pEe1lZxUhLywc7mwtOSS2qq+pQUcED40kmHtMYSE8vQFERF8WcSpJTgt5e6bZUKpsJp8Ux4mPTvjwAyMosFHZ2DSA2IRupzwqQk1d1LEBeHhf0yGQ8CmUgjJ5CQBLccw8QHgC4uQexmlvFUCiXIXklQ2FB+bEAubmlKCmpBo/XjIGBEWRnleLij1cqDgDs7T3/4pY3Y0SmgEazjY31LczPq/FGtY6NDR12dwGtdhdT0wsYGpnE4tIK9vcBqUSOLmEfqL6hsLSwQzCVhu9NLpQdAFhctj3LeMLaGpXPQUea6T+VWoPJqXk0NolQy+tAm2AAI6MzkMkVEPWOoL6+C2wWF9GRKfC5F4Ib15xhe91RbPSN8dfvAFJTWP7hYfFcemRif0EhH4uLGuh0/0B0un20Cl6hrKIFTS19xFFb2NGCgBSob+hGFrsc0VFMODv5wcqKsnfGyOT8Oy7ypdJtmlp6Mmr4XQ6VNR0h1IBIZbtAgsXlTWhJc70MfQMTaGjsMTRUEcnW1nVoa5cgt4CHeAYb/tQIWFs7wOwH67gDNqVQPDwCguin3x7+bHnbmsUqx/S0CqsaHXR7wPDoLKpr2w0yLS5tECOs4kWzGEWcevLT2XD5LQBXbRykJt+anz4AcHahhj4KS/z87eENO7ePb9/xHu0VyaBW75ABA6ZnVeDXCQ0xN6/B2MQCmlsH8JzbBDqxJoXiCcvLNy0OnWRHR1//LtFwrnpNa/qyb9wiv7CO89MF2yQms2B4mcikWds1yNXa1o/GFyIywStEfyU6hIPEvg3w8wuDPcWD9cFVERuXFtch7B8r5vDHmWlFAfozb+/Hdn3iMWySF6hXdvBSLDe4aHpGTSRTkIGSIZWZDxdn/6lf7Vw/PXIXdXaPfvTfBPKKIpVqx/CKUbkS3T3DxLYqyMbmCawfwcHRuH7V4Zf3Lc1DD/8dgQH0r5qaet+sruowPrGIHtEI5PJ5g0RMsk7I7XM+VH8kQB90erLHoHQaY2MLEBCJ+ollq6ra4OkZonBy9PnifwP0kZlRypNIJolz+sg89CIkJBa3bt51Paru2ICHD2PP8PlCjeH21QK4uFBrjlN3bIA+omKYuYNDs4iKeYYrNo7XThwQFvG0YnJmGdSgGNxx8rc8cUACI6NyWbUJWngqAoP/OHlAYhK7UrOuRVwCG6G0pJMHJKdmV6o1WiQ8zQUtIuXkASXcRtOGRuFzZnopPSb2z0+OU/M35KCKV19W1zQAAAAASUVORK5CYII=';
+Std24_ico4 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAE4ElEQVR4nMWUe0xTVxzH4baACAKjvX13rbeFtvSW8iiU8hAroAiOBHVZ8DndlsgM84ljQ9ii4AuZMxuBUB7qki0xc5nGV3B2wER5VUBYYMZt8ojJrSCJLNmWLL/fbitzVmHrH0t2kk9+J/eecz75npvf9fH5v0b1yRMLj1UfJw8fO0pWHKokDx6qIEveLyG3F20n12/cQK5clUNaUlNIgzGaVGvVpEQhJUmpgBTIBAu9EmzcunXP3veKmZ3Fu5icvFVMeoaVSVmSxpiTLUx8YgJjjItldHo9IxCJGb5QyJBslSrlDKWLLPFK8NbbhWUDg30wNfUQHjyYgMuXL0L1R1VQVl4K+97dAzt3vwNrX10DXC4X2OVu+KoAoGjqoFeCbS7BUB+6BCw4Pn4f7wz246UrF6CxuR4/qfkYyj/Yj4FBAcjxJ4AbQKBIG4gqg8o7wY7tLwqGR4aw23ELrre24PmL56CuvhZDecEYGOIPLCiLDkK10csEpZs3Hbgze0WTk04YG78PrABcAntbC1y6eh4ammzAl4RCCBnoRmEKgYhYLxOcTbLU9h6vwqmHzAsJ7G3X0CVobLahiApHnjwYWFCVHIYak9o7wdWEhJqfrFbsq6yEqUnn3IJTNpRrSRSpw4AFNek81CVGeAr6IjVEd0SksFejFTu0OrGDNogHEhLFV3VRp3/LyoLJjEzo3bcP7t/74ekVtVy/Ag3NddB0ygaUUQhyOtyNPosEvUXjKbj5soL/jWLx8KA5iRlMsjhnYUZSUn/9IzsbwWKBR7mrsLNwGw45ut0Jzn19Fq3L0tkE9RiZKEEqngTKRKIxV4h06nOCDqlMMEBHO2HpUgCr1ZP0dIC0NHC9e5yfD98VFEDnDTvYGuugtv5TlwCi0uSgSRG5ic+XQPQSnafgBitwaLTOx0IhPKYonDEaccZshl+Sk9ENm2DGZMIZvR6n2GrPyIBrX37x5BucrkdjphLpDBmwoPk1GcZYo55LIJEKblJq51hQEIz6+6ObBQtgNDAQZ3n6fFwqxQ5jDFyuPuoWNJ22oSlXhbE5CojLUWDKRgXGZeo9Be0CoaBdudg54ucHIz4+6GKYbfvn53clEmxl07WdaXL1wRPBGRsmrY7ExNUUsOCSNyg0Lac9BXY+SV6SSO91qCOm/0Y93anR/n5XJoMRgoBhpRJaMzOh397yTKNdgObPGiCtQAcp6yLdZBSqIWGlwVPQRgqINh5f0B7OE33Lcl0oFLWrVKKvlMrmEYUShygKOtavxx8Hbrv7oPd2F3T13MTWdjuUfLgbl71O49ItOrBu0eGKHRo050Z712if67Q1DprGrqIicD6YwImJURwd+xlvdXXAibojWLAjG1YUxuDyQtoFuGpusQ4TvRWcpKPqOg8fgulHk+7/0e2BHqi2HYB1JVmQuysGcuYgr5QGU7bh3wXZ0VHclanmYwNDDuz/vgeqmstwQ1km5hXH4yt7YyGvOO5pfXaeX25AyqA8Lo54KWDew3USEcHlEKIIvaZmf20hbqqywNoKGv9iTQUNz1aPeaUeFVp5A3uMjCcL5c4pkEmEvgRB8MPCeZulCmWDTKlsYmn0Ehu7701fwlccJlzEmTeFQi0nwviLgv38uSTHjxBz/TmzEPPAEbvWcbiEYGFoQEi45B8O/6/HnzwU9vfektzKAAAAAElFTkSuQmCC';
+Std24_ico5 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEH0lEQVR4nO2UW1BbRRiAzwmEkATl0gNBbAsIVC6BEpIQEtLSpiSNKdgZSLiFhEtCMFBopakWEE4KAdFRhImBcKlAc6F2+lChlIszPviiL76p744vZ8ZxxjcdZ7rrLkISNFp8cMYHd+ab/c9m9//+3bMnBPF/+080db+PV26ed8g7F2mldbnqWfMlrZ7ss42zdccWXLrmo64MBJmOqT2IJX83t7zNK6yyLX9b2ux2/iNB7a2PmebxbaCwLP2lQG5Zrn7Vsf5j78xnQGyaGzm2oLrfT9U47jONY9swmkB9fZ0lMs511A89/MngfAJMEztQYp4/vkDdH6B0A+tMw50nUB5FUNY6N9Li3PilbnQLat/8BBhdO7DIMPOlsGHWhUHxeBHqCw0zrkL9B+P59dODyu41XijBpT4/pX09yBicW6CiMyxQdq8mlDS6l9ont0Ht8GOAk2MMzm1gnvoUmN7eA6bJPdA6uQuME7ugxbULmhHqfj+DBFRIcLHXR12+EWDq6S0o6/j9JaPkabJ276Z5cvvplaFN+MrtjX2wILKPFlf3+ZhK22pYcN6+RmFr3ehjIG1boCssi6fP25a/Mk3uAN3gRqjy46K65mMUkTuotK1QePDq8CYs0E9vquwr36EbBTVvPIKaW48AAkYA/tD/Ka6yrzEVXRE7qLDepSq77jIX+u7DgvrpB4rOhW+0jodAavNDSZcPSLpwf8jhc+T40VjavshIOz8KC6QdSxS6Pcy53iAsbfHQItN8hsQ094V24AGQWH1AbPXBQ8os90BkHzU2exmReSksEJsXqHJkrbQHQHGTe/8ll5nmEor00wHNjfWnaCcALzwuIpOXKTF6w4LSVi8lbltg5N1+dETvh65prvomN7fGNXWx1/+rrDsQqlBhD0JlTxCggqDiNYwf4LUymw8DSlo8jLDJHRaUGOcpbMUT8mrGjnxo6aI6Mkt183pl18rPcpQMC5Q9AXjm6juf5+ic9Evat+gs9W3EIJ2tGaazL48gRh1nau+EPzRhk4dCEkZqvQeyNUP0SVkrmZyrZHFPZMZynhdw4pMyuCkvaw1ik+cHJMGVgwy5dZyflsflp+VykrKk7JQcRYyguIaM9k9BFDZ+SAmbPYzYsgYzVY4xviCfQ8aw+einREQKIpUgyHS+QKgT6t/7/lyPH6aerX8XjachTiCSCJJMYPOSufz0QnZiVsVRUUGDm0ISpqxzFQrELeNo6DA5XixAvIjIROTEJZ6qztHRX1PFdTPo+SQ+RQS1LyGIBIJkxZMxnNgjgnz9LC9LN+E4rR6hX5BZVLzUvDgyJg6f4XOI5IMEaQfJ0tl8Kj/hlFR/MJ5yUAwuKh6Bk0c/qsgWl5hBEqzYGBSyERyCQJXFcrgsNi8SDovNZaN5OCnrmUn/jfYbBhEa8b6r6voAAAAASUVORK5CYII=';
+Std24_ico6 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEE0lEQVR4nGNgGAVDAuiFTwwyiZmqSEidTepce8vEWfWmcdNLnLIXcRFtgX7kpAa71DnXTONn6OBTZ5U8uz6xY9c/76JlLxyzFogQbYFx7LTazL69QI1L35onznLBbcGc+ojm7f98S1cALVhIvAUmcdNrY1p2/A+u3/bfr2zVB4OoaYlOecuYsPkgvGn7P+/iFS+AQYSwABReWiH9lTphE1t0wia06IRPbIawJ4LZ2qETTkS3bP/vWbHpf0Dt1n9BVet+GEZNrUW3wBJoQVjjtn9ewCByylmMsMARaFtw5aoXKT37/iV37/2XBMSJXXv+JXQCccfuf/FAHNKw7Z9H+UYw9qna/C+0bvM/7dCJs63TFvDAzLFIml0f0rD1n0chMA6QfWCftUgkqGLVC5ALQRhkCDY2Mt+rctO/4LrNfw1jpm6xSJknBjLHLGFWfXD91n9uBUtf2GUiRbJD9mKRgLKVL2AuJBYDLfoXVLv5HzB1nTVNmiVnEj+jPqhuyz+XvCUvbNLmIyywzVgk4ley4oVb6Yb/UPwPBxuZDxf3qwZakjDzoWZw32b/6k3/gOH/wjJlLsICYDiKuOYsfGGSuuQ/BC/+h52NzEeI22Qt+6cXOeWqRlDfKofcFf+sU+e+MEuajbDAPHmuiHPWghfGKYv/g7BR8qJ/2NjIfBhtnbHkn074pGP6MdOl9SKn1tsCLQNG9guT+JkIC0wSZok4Zs5/AdJELAb5wCp94V+1gO6luuETwCkJaFG9deYSYHDNemEYMwNhgVHsdBHb1DkvXApW/nfJX/HfOX/FP8e8Ff8dcpeD8D/7nOX/rbOWwX1gmrbkv0XK/F9KXs0dCg7ZnDBzNAI66y3Tl/wzjpv5Qj96GsICvdBOLhWvhhJVr/p6Fc/aemX3qnpF1/J6JSCt7FnXoObfedg2G2KBOdAAk4Q53+WdigvEDYMZkTOaMlCvedrif0DXv9CNnIK9qJDS92ESVrZk4RSUZucSludiYuXgETMIbbHOXPrPIn3pP/3Iya8FVJzDmVg5edh4RLlYuQTZucTUWMT1fJkUnEvrTVMW/dOLmvZCK2wSqgUi6o6M/DL6rMxsXCAv8wKxIEgYiMVF9YO7bbOW/tcK7n7MJabtw8DAKA0Ul4DKg9TxsnAKcIqbRDcbJy/8px059YVm6ARUCxhZOJgZGJnYgUxuIOYHYmGQ4UAsLaIbNAEYhJfZ+GWdgHwlIJYHiUPlhaHquQXVXFsMExf80wyf8kI9uB9rEIFKSDYghvkCpFGIR9YsiJVbVBXIFoVikGYhqDwPIxMLJ6eIMpu4SayjrHNVvbx7Q4laYA/eCgcYeYxMzOy8zEDMysTGxQbE7EysIMzJzsDEDHIEKxAzgxzFwiXEiM8wmgIALQ4ZDlvO6XsAAAAASUVORK5CYII=';
+Std24_ico7 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAC+klEQVR4nGNgGAVDBtikzOHTCe0Ps0mdw0gTCyyTZouax09/phs2odQ+Yz4z1S2wz1gg4lO0/EV82/Z/JnHTZrrmL+OmqgWOOUtEvAqXvfCr3vIvqnnbX9O4GVus0xcIkWSIcew0a83gvkoE7oezNYL62jwLln73rtz0z6ty0//I5m3/LBJnnbBKWyBPtAXmCTNrcybs/5fSs/dfcvfef0lde/4ldu3+l9C5+198B4T2rNj0z6N8IxiHNW77B4yP+wYxM8yJssAMaEFs687/IM1Ag/6DMDIbmQ+jA+u2/nfOWfxGL2qqt3XGIvwpDGRBdMsOuAuJxX41W/655S/7ohs5JQ2vBSbxM2ojmrb9dy/b8A+I/0MxMhuZj6LGC+gb96JVv9UDensNoqcxYbXAMGZarUfx6v8mqUv+AfF/KEZmI/NR1JinL/1vlbbwFzAxTDKMmY49qPSjptS6Fq78b5S86J9xyuL/IIzMRuYji5ulLflnmjjnh1pQb7Fx/GzcmVA3YnKtc/6KfyDNxGJzoOEGsTPeawT3+eENfxDQDu2rdS9a+d8hd/k/+5zl/+2A2DZ72T8g/m+TtRTIXg5yMczlwGBZ8k8nfPI9RfdqW4KGg4CKe5W7qnddv6pXbZ+KZ3WfintlnzIQq3rV9an6NM00TZz9DWaBBdBwjcDuC9I2WepEGY4MJHQ9GUVUbZgF5AxYOQVlOLhElDj5ZAzlgJH30iR18T+zlIV/Fd2q93CJqkpwiaqwcYupsnCKKGFPOchAQN6EiVtMhZWFnYeTgZGJFyQExMJALMbMwa+tHz31lUnSvD/SlmlLmTkFlIHiokAMKo/4gOq5GJiY2YFs3JHMyMzGAqQ4gBhkuCDUAEkglgVaYKwa0P1aVD+kj5GJFRQsckAsBbIcbgkDAxcQswExTt+A0i8r1BIeIOaHahZlYuNR5Vd1TQSFIBSLQX0nAHUQJyHD0QFIIQvIW0ysnOxMbNycEMwFxows7EBHMLKB1UCChTY1HSEAALTkl7XKpzZZAAAAAElFTkSuQmCC';
+Std24_ico8 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADDElEQVR4nGNgGAVDCpjGTZfQDO7zo4nhlkmz1J0z511UC+hppLrhJjHTnLwLljwrmnb4n3pQL/UscC1YzmQSNyMsuHLNx7DG7f+Suvf81wjqo44FTrlLGIGGF0fWbfgeVL/tv2fFpv8Jnbv/K3p3HNEM7q/XCO6rB1oGpoG+guDA3lLzpDnchA3PWcJuGD15RmzL1j9+NVv+eZRvBONQoC/iO3b/iwPi2PZd/2Ladv2Lbt35LwqIo1t3/XPKXvTKLHGOGF7DbdIXCJvFT18d37bjn0/V5v8gg0Guh2EYH1kcxPau3PzfPnPhK9OE2bgtMImfIWuROONIHNBwr8pNcJcTg72B6u0yFrwyweUDw6gpug4Z8x5EtWz/51624Z9b2Yb/UIzMRuajqAFa8t8mbf4r43gcPtCPnKJjkzL7jnvx6n+maUv+maQu+Q/FyGxkPooas/Sl/43iZr4yiJ2FO4hM42cqGsdMPelRtOqfccri/yBslLwIzkbmI4uD2Capi/8bxMx4pRs1HX8kG0RN4dcO6V/lWrAC7BOQZmKwScrif/rR019phU/BbwEIqHuWsav7tk5yyF7yyzx9CdylVpnL/ttkLf1nnbn0v1XGkn+W6Uv+WwCxedrif0D8Xzdy6itV3xbCFoCAtEkYs5J7bQkw4n5YAMMXZIF97or/yj7tp5S96juV3Ks7FJzLgLi0Xd65DIzlnEprZW3S8Wc0Dn5JRi4RRWZuUWU2Dn4pTj5FhwjT+BkfLTOW/rPNXv5P1DihA6iMD4h5gfLc7PySHLxS2mz88qbMwmqOjIQczszAyMQOpEGu4AdiYSAW45ExCdQJ7XnskLv8n4hhdD9QTAaIJUFyUDVAtYzcLJwC7Fxiasy4DAfZzgrEnCDXAbEgEItCDZLlEFJ0VvVuui5iGDUJyFcEiUHlRKFqecF6GZlZGZlYcfoEJMECxDBf8EE1g1wpyswpoMKv4hQGNVQYKscHVcsO1UswmJAtY2JkZmNhYuFgZWLjZgNidihmY2LlZGVgYgUZyESKoVQHACermRRY9wpYAAAAAElFTkSuQmCC';
+Std24_ico9 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAENklEQVR4nNVVa0ibVxiuQybIfol3mYo4mezXGDIc9cb+zP4QhtlENlaGTGenslBZSBWUNnRsVGQro4MJ7TTOUnE6bZE5mLNGjTdMzKWamNREczXJ9+Uem8Rn53xdYxuVZT/3wMPh+8457/O+7znve86di8NLBDk5OW/n5eVV5ubmnko69w/PNzY2iurr6wXxds5EamrqayqVKuLz+XAaPR4PGIaB0+mE3W6H2+3G2NiYJ2EBgszt7e0ozkA0GkUoFOLEXC4XrFYrhoaGXAlZTktLe1MkEu3s7++fajwSiSAYDHJRUOM2mw0WiyVxgaKioovPUhCPo6MjHB4ecp6zLAuHwwGz2cxRLBYnJlBcXPwxDZnmNh7hcBiBQIDznuafek8j/c8CNGS6Kc59PCHe+znvGTgODkhqzDAajdza4eHhxAQKCwt5Wq0Whl09noSj8Acj8AXC8PhCcDFe2A9c2Dfb8dhggk5vgF6vg9ViwuDgkCMhgfLy8p7tLTVGprWYWnRjdsMLqcqP1a0AoR/Lj/xYVHrx5zqLSYkDt341YkVhwoP7E/7MzMy3zjTc0tJyb3Z2lqXhU0wseHFfGsDva0FMr/rwYMWH36RejJP/YxIfRh/6MDbvw81xBgtKDyLhEAwGw9HMzIyzra1t4gXjZWVl7fEH+vMfTly7/Qh9Iyr0jRvxDfFUdG8XV0d20SM2oPuOEVcHzeD/YMaiynviQlRUVAhjAq2trTPxC36acYJ3fR0N3y7hw/4NNHwnw6c/qtDQv4kL12SoEcrwzpdyvNup41IXj87OTklMgM/nL8QvuP0XQ4xq0HJHizaxBh2/aMC/u4NLg1pcvKXBBzc0uNCrQVWnHmvbwRMCXV1d8phAR0eHhP6kLYCSXsnpTQ/eu76C9/uW8NH3UnxyU0rGJfD6paj9WoqKK1K88fkiKi8robccckUY208gEAhkMQFyKBLaAmjpU9IqZlg39DY3tBYGj20sdgnpqLOy0JhZqPdYyPUsdvZZuMnFYJjjvdQWSZHs+TOQ0OqkVUlps9m5IrJbLafywPaUDvvTkVY+rWpyi0BriLYRkvZjAXJFJXQRnaQCQqEQBQUFCTE/Px8lJSUYHR3F3t4edDod12ba29uPBZqamh5SdaVSyYnU1dWBFBxqampQXV2NqqoqjpWVlTGSa8iRzpPqR3NzM9c2tra2OCeJgCImUFtbe3d5eRlzc3MgxYbJyUku3ERIja2vr2NgYADz8/OcjdXVVfB4vNmYQFJS0qvp6emCrKysbhL2DYlEEqUHRpve86RNzWQynfhP23dvb681IyODT2z0kJbRTV7dklNbRmlp6WcKhQJyuRwymewFqtVqrK2tYWNjA5ubmzGS1w9TU1Oh5OTkl8/sRc+QkpLyOnnwv8rOzhYSCuJJ5riReBoj+b5C+AXx+pV/Ffhf4m83dbwkeBPbjAAAAABJRU5ErkJggg==';
+Std24_ico10 = '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';
+Std24_ico11 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADv0lEQVR4nK2V7WtbVRzH82oTQRR87Qv/hoGvnSuKIG6+cDoEsd0DZSiCrPpCEbWbFIZLh4W1W9dOGCJCW0UQxdkuyU2brtWkN09L1jw0jze59ya5aZI1ffru9zs3cVmT1jF64dNzwvmd7+f+zr1pLM/3/fjSocu3k69dd+HV0bkWXC3jzvnecBZncrbl6d4rb1yYDkNTVeQyaahZE20X1Gxq1znv4wzO4kzOthzsGTx2/u8wIuEQzv20gGMjd/DWE8J7OYOzOJOzLQfoTz99SMeW0TV6Fzf8GxheWsPIHgx3mPPIezmDs1hwoCngD8pKFF3XgvhuoYpz0zo+ZWYa7Jj3dZjznksLFcoIiKxHBNxBPhnHERJc99fxvaf6RIzRXs7grDaBkkrgy19lnLjhxnsNToy78c6YG8cfk7fHPPh8yiuy2jvIpHDTHsClP3ywNhi7HcByJIqg7IFncd5koTm6Os69Hjcy6XSrwCoEpXwGr4/6MOA0iJLg/Z+jmFmKYFZyIJdTkFP+B6pxOBxQstmGwPpQUNFz4gF95TDw7mQGH/6p4swvSczIccw6JaRpk+zzQ/YHOuMLiBoWqHm1XVArqei66scFZxk9vyn45JYuBDZ/QgiUXA7BuyEEQ+HO0FqWalig6zoJQq2CEOqGLgQDc2X0/p7HZ9MFIZACKfOI8nmE7y0jvByhMWKOrXNa4xqHw45iodDewWalhCMkuDi/io//UvGFvYjTU0nMhjJwkkBVNUSiMURicaI5tsxpjWvsdjvKhtHewXatjFdG/OLL0jet4Wt6yKemEnDdU4RAo7bjK4k90TRdCCqrqy0ddJsdYK1CAh8u/1Oluy/g2zkDpyaTcEXykCQ7nWsBiWQKyVS6I7zGNSyoVaumoLtVsHEfh0kw9G8V38wWcfFOGScnE5iL6ZD4XIsl8ZakM4zSGB+dcw0L6mt19N8KtQpCwFYdh4d9uOKpYWDewODiqimIF4WgROeq5PJ7wjU2mw2b6+vob+sAG3iZBFflGqyLZQy5Kzg5sUICQ7wZhlGmh6hD1XaHa1iwvbnVSbBFAi/G/fTv11vFqK+GnqaA2q7SuRqlMkqEQXda2jHnNa5hAbDd4YjoOjruR/dEHB9MxATHb4YhZypw0hfN6/ViaUkWyLLJzjnXSJIksv7r4CC9SudFB0AwVxV33ITDa+tb4i5V+hl8HLiWL/MXjQTPnB48enZK3rZHNdj2Cc7iTM62PPvmR4ee6x0aearH+gO1tC9wFmdytqVxvUC8uM9wpuUBo5m2WkW8RTAAAAAASUVORK5CYII=';
+Std24_ico12 = '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';
+Std24_ico13 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEIElEQVR4nK2VbUxbVQCG0SUm/nDyQ0Oi0T9qlmhI/LE/Gv/MJZOYuPmJokOH4thCyDKCQ7a1sOHKhgVEKAOLKyJzoxj6ASwF6TbajfVj7drCCtTiB40tbSmFQsvnzes5N1y89gOd8SRv7u05zfO+ee+556al/TUeJHr4f9BDRPenxQ06sUupVHYqFAq5QqmUK5UquUpFpFbL1Zx6euQ9fPX2surlaWBg4GJ6evqj8QbbiPZO+/2M1+eDb3oa/kAAgWAQwZkZzIRCCFHNzmI2HEaYam6O1RzV/PymFhYW8DgZSQ38gSBDTBLhHJgHnKeKRGAY+R3GEQ8CM2FEyO/FxcXUBgTIbAXmoBGSMjwXgVRhQrXciuY+B27f/Y2Fx2Kx1AYEyvDhtIrNxBtgWsGkJ4CTzVp80z+KbssURB1DuD3iZuFLS0upDQiU+RucAxNRME3Yb5jEZ03XIO0fwQWtExeuOnGsQQHtDSv+8AXh9YfwZObuzOrWvgcSDEgdDAvnpebAwdl51F0yoZQkr+kyoK7bjHqlBV+r7uCUbBC5ZS346KQMB4TtKKjsWH+/uKE0wYCAGX5yDm53eVEkvoKjX6lxvGUA5bLr+KLjJqouGXH2shlVl004c3EYFW1DKGvW4Gjtj3h6V6EwwYCAmXi4ZtiFZ7IEePbVMmQdakSusBNFdRp83qKDsO0WKtpNREYIZDdx7PxVEkSFDwUyPPFCXqIB2SUMHx6NRvGLJ4j3SlqxI+s4dr5bjd0FUuwr6UJO+RV8XDWIAvF1HKoZQv45LXKEauw53IrMveV45PnsRAPyMJkID053xPLyMhajMTR0aPFibg32FLbhnRMqHBAN4nCtHkcaDDjSaCT3N7D/tAavFH6H514TEIO3Eg1Icoamp3C65Sh8ZWUFq6urrAw2F94ukSJboMbBL4dQ3GRG2bd2fHpWjf3F53BQ0IS8Mgmeejlf90ZR1ZtJDbiXhabnw9fW1rC+vo5QOIIT9Z34oFKFUukdVP4wgTxRN6z2u+w6wzCp3wMCZ9j0G9VwBhTOGVAAvXZr9Mip+B5nutzIr+2DyerYDJXaIBplolukp3BOdG7851/xyakW7DvdjltmG/vWbxx2jyU1IOmZ+O45ON+AztEQ9Gyip+9Pw2a4JycxNeWB2+12ZWRkbE9uEIsx3M5JlZ7e03V6fHg8HpDzHxqNBkajESaTKSAQCHbGwzcNYhsGqbqnovN0I9Dvg91uh9VqZc1sNtuCWCzOIpz77skgvh66RoEB8s3Q6XSYmJigRlGJRJKdluRT+a8M+A+X1kMfptfrhV6vp8nDjY2Nr28F/48GPlgsFg+p5aVUtfAH/UOm0+mUjI2NnacaHx9nRSpg5XK52CtdGx0dbXI4HPUikWjHP4HjTbbdg7ashBt/Ate6RXElFFu9AAAAAElFTkSuQmCC';
+Std24_ico14 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEGUlEQVR4nK2VX0xTVwDG2XzZHuZ4MSxsccs0WbJkS+a2hyVLdLxMXTRuTqIuSzYmTjPnP9S4kfqn2JZpYWJoC6jghDIpkZZSaoMFtRdkdBYpdtA2uCA1lBZogdLy9+7bOTdcvJRbNped5Mttz21/35fvnHNvUtKT8TzRi/+DXiB6Nilu0ImPDAZDlV6v1+kNBp3BUKurrSUyGnVGXnV1ujqhTCZOJoEaGhq0ycnJK+INlhFtHggE2H6/H/6BAQSCQQQHBzE4NISh4WEMU4VCCIXDCFONjHAaoRodnVckEsHLZIgaBIKDLDFZDOfBAuAoUXiEXMfGMCbQ+Ph4YgMCZJcCUygHJCnNzW5cu+VFhdlJ5iIcmCoWiyU2IFBWCKdVzCeeA9MKKKigvAmWPwK4ZO3G6Yu38HggxMEnJiYSGxAouwA++qQCHhyNRhEloPzLRmgZD369+xBX77hxTN0E2/1HmJycTGxA6mA5uCA1D25xuJFfZkFeqRnnSvRI35MDlakdRZZOaG44oa6/j+xLNhQbOvDSqndfEzUgYFaYXJh676lSSErMkF5phLzChtzKFuRdv8dJWW3HT9daIatgkH3Rik+yqppXbSt7fZEBAbNi8Bjpdceh89h3tppUYcGJ0juQlrfiTKUdZ7R27vOJMgY/FFuRdaEemTmVeH/nz0MrN13YvsCA7BI2Hk4Xjfa6IUOKTd9r8HVODfYXWHFEw+BY8V1ybSbfbyMz14Jtx3VI26XB21ukeHXdQbySlh1aYEAWkx0TgU9NTWHt9h/xzlY5Nh7Q4ovTN5B59jb25jP4Ns+GDEUjdp40Y3NWFdbtKsKazxV/rd4gaVu5XvbmAgOSnKXpuVrITuHh09PT+HSfAmvSc7Dx4BXsOHkd3yhMOFriwGH17/jufAu+klnx2fEapO1WY/XHRwpWfHDguUVrQA34w0LT83Aql+dPmG62oN5KdJPB7sOnICl3IbvsAQ6p7cjIbcTWo5fR9NsDpKamim9TAmf5RRWmn5mZ4TQ7OwuWZTkpNVchq3kIaaUHmfmN2K8oRd9jP/efhOdgPBployLp4+FU5zTlkBl78aWiGkXaWoTI+aGnfu5hlypqQNKz8d3zcKEBndOTqvbk/QKm9R76+/vR2/sIfX0+9PT0eFNSUpaLG8RiLL9zEqWnn+l9+vjw+Xwgz39YLBa0tbXBbrcHJRLJe/HweYPYnMFS3dN5uhHo+8HpdKK9vZ0z6+joiCiVyvWE88xTGcTXQ+9RYJC8M2w2GzweDzWKqlSq9CSRV+W/MhAuLq2HLibtnWEYmjxcWFi4ZSn4fzTww+Fw+EgtHyaqRTjoD97q6upSdXd3a6jcbjcnUgEnr9fLXek9l8ul7uzsLJDL5W/8EzjeZNlTaMlK+PE3uCZEiDSOtUcAAAAASUVORK5CYII=';
+Std24_ico15 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADMklEQVR4nL2V2U9TQRTGefZfMCZNNMZ3twhurwVNjFohkShFdkQRUUKigoCyiXWNshVRI6gUCGixCIXSsnW70HJtBetSkbYCFU3UhAifM1PFVLmG4jLJl7mZnDO/+c6c3AkK+h9jxY7iClHoWYhC82GODFq0aL5IXDC7fHtRuR9AFFYwozQ4IVda8KVh86KVJddBVsdBFJY/4w8g5I5BFzuB0/kCXu9EwKJ5NP9i/SCbfwF0WlyQ5jWxwKkpb8CieXtPKSBTDMwP0FjdCI6rYoH2ER5WG7dg0Xiat3pfGc7XCQGG3AiJu8ECP3/+FLAYYH85zt0XAGh5DzbGV7PA6enpgEXz1kSVo+jebwCbEnyAYYctoBLReJq3VlqBwrucEOAtNifeZIGzs7MBi+ati65EwV0BB13EwZakPwOsP1CJ/FoBB5ohD7Ym32aBi9WGGDnO1Ao4UFs9kJxWEsgt4uS7brKybUqsZvdDRRshJP4G6zgq2trBsT6JMxTIqxFw0DboxhG5eU6plSYcrjDhULkRB8sMSC7VI+laPxKJEq72If5KL2Iv9yDmUjcOXNQh+oIOUpkWuUIOVJyLbSxNz4EkfNfClHAS4uMKiI8psC2zEeFnVcKAFvMYA0gidmOQN2Hk+VO8fP0cY65RjE942O/g3dQkxiffwu1xwT5sw54ICVKIs0NlejL3Q5L7CDk1AoCHxjc+ADkZ7WvFgzt+p7UP8xiwGNGr16JT1w7bU56tJ1/XI5mULaPajMiidmFAs+EHwPFyBMq2BvYtzmxms5XnoDf1QNPdjlZ1C3i7la2nkPtJIQ6yayzYV6wms8DftLF/FEerOJb0ipRGrVWxb+kFLZtNA/3Q9XbicccjqLtaMWSzsHXaCKlEhQoeUSUdDDQv4Eozj1LVM5Y0OuZEr6HLr0S0NHTjVrUS3X0a8DafA+o6Tc5B1mRHtEyDrPkAy8Py41btPP+xpN6X5PK8wYR3HO8/TGFicpwBhx12cBYTkRGWIW7uDoobbChseILKNgcy5HqcuE1KRF7IoJ/Hsq1p6ZS84Bb9JvYO+4m8yeLsWrLlkp8ZS4lW/iWtmA/wT8ZXh0IUbNg7rmcAAAAASUVORK5CYII=';
+Std24_ico16 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADLUlEQVR4nN2VW0gUURjHj61rm7uRW2ZuWhpESVZqbWJpWRZeitDIC1bomnnPC6VltepWppUhEfSgGQRpmpfUTbML+BLSQ08bRmRQaCglXXR3Z2fGgq9vZjRa26lY9qkP/sycy/x/5/KdM4T87+H8biep/hJNAN9lDjd/HUFqqJrdMJHIAzwdb34pCqae1MJEMg/wdax5VQSwfdXAPqwGY6rjALy5uXIbsPpyYHt0MNWrA1MWAWMagckUFMKMGsJDJ1Od6PFEWf+buEVx+O2cfzPXbQa2vQTYrpPAdpcK0nPCsh7ru49hWyGw9/KAbU0H+vouMBV7fh+OV9b7KYiLuPkONNeqgbmTB0xrAbBtaNJRhEbT6sRyZ4Fg3JGN/ZKBaYhEQDDQNauBKlkA7xOVzegltQVQDISSOvOpQGBuH8GPM4FpzsIR5ghqQ7WkAXMjGuirgWCpVAGldQHqNAHqDAGLFoXv5nwChgTvQvST/AZAqduDnfRm7XpgbqUA05gKTJMG6JuxQNcGgUXnDtQJNCwl1sbl06oQ6j4dlo1WhPqo0M/JaomIkOfb24MlvWatP9B1e8FyeR2aKcBcRMCUS/jN5p5cmYNZylA61FnUOeFJHSfwdL9vjq1Z/IR0hDg/MOUJxlSxYIr12SgNKr0+RNE2sEdu+JwrYSw4avo86oIgrjyYpGrCfvNsbvYMpCvUpY8bMQ/I5AEhRDgLq1DBqJhYH3mpIUExxEOqUBeFGY1olC+w3U00o2Yg+q2yR/zSZFgdNG7qcpQHyn/hXMm+oQPytzQuEV0jzGZYo3yJbYvFAFaQ++Guj41JNk8yt4ncBbhCq/YoM5VKvjFXEICg5/FLe/4G+BUSxoGI+GXHrXXAWI78Iz8DzKaWGJ9K8oclmg3hOroT8euauyKWj+W4jTC4B+N5rl+3LFOGEZFNtjdUH466jdKYtnejvBs4ILGRpvaGkzZ85QZjvjM7mOxhwPIm1Hwy66DZHQeDfGVDGX51rw55PZNJnSOwaglx1Ogb8xMk/Snqtd3xa9KwGIDyIiKXnV1xLW6jtCrSn8suLgncHGo+HXOmTaVE5IfzA5wJtwrIHz1xAAAAAElFTkSuQmCC';
+Std24_ico17 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEA0lEQVR4nO1UWUijVxT+ncw41UJBHEqHoSOW+hIqpQ9qoQ8hr4O4gGCRokgUEXHD5UFDRVyi4taID9YFBXFHccEqRdwQtC7BiKOivjgqbnGJu0n+0+/cTtJpiKV9nwOHm/z3O9t3zj2S9FH+j2i12pe5ublaaGNOTs7PWVlZX/4bHji2UeHUQ3+FzU+JiYnuLsE6nU5dVFRkqquro56eHuKzsLDwDA7euMLn5+c/KS4uriopKbG1trZSZ2cnVVZWUkFBwXRKSsqLf4Bramq+hp4ajUay2WzEwufKygrhuzk7O/tb5wB6vT6zpaVFPjk5IVmWhc3NzQ0NDg5SeXn570ql8pk9E6mpqamPnduBduH/HKS2tnbMw8NDYXfe2Nj4ClmbLy4uyFmsVisNDAzIYCRWgDs6OnxHRkYsfOFKuBLcW9GP7+0Burq68ldXV13iWY6Ojqi5uXnR09PTXRoeHk7b2tpyXG5ubnIGQvv7+2l+fp62t7epvr6+jJ2jL9Lo6OgyZz80NCSUaent7aX7+3tH5VNTU5a4uLhvpOnp6Y7z83OR6d7eHlVUVAhwX1+f0KqqKpqYmODfE/D/FOdnS0tL9zwE3d3dDhyqElhmgn1x0uiTRlpeXv6Dm/Pw8EANDQ0UGxtLSUlJlJaWRhqNhoKCgigmJoYmJye3EeBTJKTkqiIjIykhIYFSU1MpOTmZgoODycfHh3Z2doSvw8NDQp90Eso3coDb21seS1KpVMKYnYaEhFBAQACFh4eTwWDYQwCvhYWFgJmZGQoMDBT30dHRAq9Wq8nPz49wL3ydnp5yhb9IiGS4vLykq6srwSVnlZeXJ6jChBEejih9fX39HQfAtH13cHBA8fHxhMZTWVkZlZaWUmZmJkVFRYkGsy/uEfpYLYH/EbPZLD6YTCbCCNLY2BiBOqaFqquraXd3lzA1RqZofHz8JTK0cV/a2tpocXFRKKaGp034YWVW2tvbtdLZ2ZmOI3JJrMfHx2Jy5ubmCHzT/v6+yAjBernJyPTZ3d3dO9jRxsYGzc7OElPGY2v3wYo+yOnp6eESSlZhvGR2/JjyPVZCsv0doNIWrvoxPDOBxI68vb19pYiIiOfowVvOiLl1Vs4GFB0A7GcPgKzVyNDKk+LKhunBqLcB+tfiQ4k/WiwWG0f/EMj/8V3GEtQB5lgVXl5eCmQ4wNPi7Jz5x2ny9/f/wbG4nkIwXno8ENv19bUAMe94NDK25G9ubm5fOC+7jIyM15iYdZ55+5CgN3xe4/2ks1tnm+d4GNlYFVvI/GJtbW0HmdcqFIrXLra1kLCwsK/Q/E7mG3Sd47chNDRUg6tPHrNxg34OVUJ9OehjwA/E/T1W+d72yX+w+Sh/y5+CAwUAjsXHGgAAAABJRU5ErkJggg==';
+Std24_ico18 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAB7ElEQVR4nO2Vy0sCURTGrUV/WNpj06oMzfYR1a7EV2W0SAiiRZQ50SKCwMqoRZlYClHZQ9AiKsWIyBEsoodWUnbyG1IaR0cLhjYdOHDn3u/7HT1zZkYm+6tQKs1VcpW2qV5jcNS26KMKlTaFxBp7OIPmV3BFc09jnUbHdvVZE8yCh5w7J7QdvOASa+zhDBpof8KuqGnRjao6h5KODT+590M0teIjy8wG9dmcXGKNPZxBAy088JakZ4SWNuNY0uMPE7PsI5N1lYxFEmfQQAsPvKJwuVpbo+6wPG4ehGhkzlsUnJ/QwgMvGAXhZrO5sl6jj9hdh2Rd2uEBDk6v6OY+QW/vaXpKvlIwzNLwrIengQdeMMASFKhu7m5oN008OndPBb8QkXhO0WXsjt7Tae76NlOwn3HydPCCAZagQF2rYYGZ93A9zS9gdwfINLnGrdd9Z5SN8cVtng5eMMASFtDoWYzfUGZCivV6YGqd2JsHDo52DU67eOfwggGWcHpU2tetQETwt7MJ2HX8noN/ZNLhPRJo4AUDrB8XCF3Fc61x7Z0X1IgWKNWiQDhKx5EYl722tYIa0RaJ3eRyU/Qmi40p8iX1lmtRsQKiYyr2oJVToOSDhpD0VZGbJilfdl8h7es6G1J+cHIh6SfzP77HJwXkpmEum/8jAAAAAElFTkSuQmCC';
+
+
+function GetStdIco(Idx:integer):string;
+begin
+ case idx of
+  0: result := Std24_ico0;
+  1: result := Std24_ico1;
+  2: result := Std24_ico2;
+  3: result := Std24_ico3;
+  4: result := Std24_ico4;
+  5: result := Std24_ico5;
+  6: result := Std24_ico6;
+  7: result := Std24_ico7;
+  8: result := Std24_ico8;
+  9: result := Std24_ico9;
+  10: result := Std24_ico10;
+  11: result := Std24_ico11;
+  12: result := Std24_ico12;
+  13: result := Std24_ico13;
+  14: result := Std24_ico14;
+  15: result := Std24_ico15;
+  16: result := Std24_ico16;
+  17: result := Std24_ico17;
+  18: result := Std24_ico18;
+  else result:='';
+ end;
+end;
+
+function BnCapToTBN(Caption:string):integer;
+begin
+
+case trim(Caption) of
+  'В начало': result := TBN_MOVEFIRST;
+  'Предыдущая': result := TBN_MOVEPRIOR;
+  'Следующая': result := TBN_MOVENEXT;
+  'В конец': result := TBN_MOVELAST;
+  'Добавить': result := TBN_APPEND;
+  'Редактировать': result := TBN_EDIT;
+  'Отмена': result := TBN_CANCEL;
+  'Сохранить': result := TBN_POST;
+  'Удалить': result := TBN_DELETE;
+  'Обновить': result := TBN_REFRESH;
+  'Печать': result := TBN_PRINT;
+  'Фильтр': result := TBN_FILTER;
+  'Поиск': result := TBN_SEARCH;
+  'Справка': result := TBN_HELP;
+end;
+end;
+
+function TBNByImageIndex(ImageIndex:integer):integer;
+begin
+case ImageIndex of
+  5: result := TBN_MOVEFIRST;
+  8: result := TBN_MOVEPRIOR;
+  7: result := TBN_MOVENEXT;
+  6: result := TBN_MOVELAST;
+  1: result := TBN_APPEND;
+  0: result := TBN_EDIT;
+  16: result := TBN_CANCEL;
+  15: result := TBN_POST;
+  2: result := TBN_DELETE;
+  10: result := TBN_REFRESH;
+  9: result := TBN_PRINT;
+  3: result := TBN_FILTER;
+  12: result := TBN_SEARCH;
+  18: result := TBN_HELP;
+end;
+end;
+
+{@action
+Id=4BC5175C-FA7C-406B-A325-EE980EF71EC8
+Target=main
+OrigName=ExToolbar
+Name=Настройка панели кнопок в главном окне.
+Group=Кастомизация интерфейса
+UI=
+<ui>
+ <divider caption="(В скобках - значения по-умолчанию)" />
+ <list name="ImgListSize" caption="Размер иконок в пикселях (24):"
+ items="12;16;24;32" defaultvalue="24"/>
+ <number name="IcoMargins" caption="Отступ от иконки до края кнопки (4):"
+  defaultvalue="4"/>
+ <checkbox name="NavBnsDisabled" caption="Отключить кнопки навигации" defaultvalue=1 />
+ <checkbox name="ToolbarMoveDown" caption="Сместить панель кнопок ниже закладок"
+ defaultvalue=1 />
+<list name="ToolbarColor" caption="Цвет панели кнопок:"
+items="Системный (по-умолчанию);Белый;Серебряный;Желтый;Кремовый"
+defaultvalue="Системный (по-умолчанию)"/>
+ <checkbox name="ToolbarBorder" caption="Рисовать рамку вокруг панели"
+ defaultvalue=1 />
+ <folder name="IconsFromFiles" caption="Собственные иконки (путь к папке):" />
+ <checkbox name="FilterBnIndicator" caption="Включить индикатор установленного фильтра"
+ defaultvalue=1 />
+
+
+</ui>
+Description=Действие позволяет выполнить кастомные настройки панели кнопок
+главного окна программы.
+@}
+
+var OldMainWindow_pages_OnChange: TNotifyEvent;
+    TB_MoveDown:boolean;
+    NavBnsVisible:boolean;
+    Old_MainWindowOnDataBaseClose:TNotifyEvent;
+
+function GetActiveForm:TDxForm;
+begin
+  result:=MainWindow.FormViews[MainWindow.Pages.ActivePageIndex].Form;
+end;
+
+function DetectEnabledTbnButtons:boolean;
+var i:integer;
+begin
+  result:=false;
+    for i:=0 to MainWindow.Toolbar.ButtonCount-1 do
+     if MainWindow.Toolbar.Buttons[i].Enabled then
+      begin
+        result:=true;
+        break;
+      end;
+end;
+
+
+procedure SetNavBnsVisible(b:boolean);
+begin
+with MainWindow.Toolbar do
+  begin
+    Buttons[tbn_movelast].Visible := b;
+    if b then Buttons[tbn_movelast].Left:=0;
+    Buttons[tbn_movenext].Visible := b;
+    if b then Buttons[tbn_movenext].Left:=0;
+    Buttons[tbn_moveprior].Visible := b;
+    if b then Buttons[tbn_moveprior].Left:=0;
+    Buttons[tbn_movefirst].Visible := b;
+    if b then Buttons[tbn_movefirst].Left:=0;
+  end;
+end;
+
+procedure MainWindow_pages_OnChange(sender: Tobject);
+begin
+    if OldMainWindow_pages_OnChange<>nil then
+    OldMainWindow_pages_OnChange(sender);
+    if TB_MoveDown then
+    begin
+        if GetActiveForm.ViewType = vtWithoutGrid then
+        MainWindow.Toolbar.Parent := GetActiveForm.Parent
+        else
+        MainWindow.Toolbar.Parent := GetActiveForm.Grid.Parent;
+		if  (GetActiveForm.ViewType = vtSimpleForm) and DetectEnabledTbnButtons
+    then
+        MainWindow.Toolbar.Parent := GetActiveForm.Parent;
+    end;
+    if not NavBnsVisible then
+    if GetActiveForm.ViewType = vtWithoutGrid then
+     SetNavBnsVisible(true)
+        else
+     SetNavBnsVisible(NavBnsVisible);
+end;
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// ИНДИКАТОР ФИЛЬТРА ///////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+var FT:ttimer;
+
+procedure IndicateTbnFilter(Sender: TObject);
+begin
+// if MainWindow.FindComponent('DesignFr')<>nil then exit;
+ if (MainWindow.StatusBar.Panels[3].Text='1') and
+ not (MainWindow.Toolbar.Buttons[tbn_filter].Down) then
+ MainWindow.Toolbar.Buttons[tbn_filter].Down:= true
+ else
+  if (MainWindow.StatusBar.Panels[3].Text<>'1') and
+ (MainWindow.Toolbar.Buttons[tbn_filter].Down) then
+ MainWindow.Toolbar.Buttons[tbn_filter].Down:= false;
+end;
+
+procedure CreateFTTimer;
+begin
+  if FT<>nil then exit;
+  FT:=ttimer.create(nil);
+  FT.Interval:=100;
+  FT.Ontimer:=@IndicateTbnFilter;
+end;
+
+procedure DestroyFTTimer;
+begin
+  if FT<>nil then
+  begin
+    FT.Free;
+    FT:=nil;
+  end;
+end;
+
+////////////////////////////////////////////////////////////////////////////////
+
+procedure MainWindowOnDataBaseClose(Sender: TObject);
+begin
+  DestroyFTTimer;
+  if Old_MainWindowOnDataBaseClose<>nil then
+  Old_MainWindowOnDataBaseClose(Sender);
+end;
+
+procedure ExToolbar(
+     ImgListSize:string;
+     IconMargins:integer;
+     NavBnsDisabled:integer;
+     ToolbarMoveDown:integer;
+     ToolbarColor:string;
+     ToolbarBorder:integer;
+     CustomIconFolder:string;
+     FilterBnIndicator:integer
+);
+var SS:TStringStream;
+    IL:TImageList;
+    i,ii,j,IconsSize:integer;
+    IconFileExtentions:array of String;
+    IconFile:string;
+begin
+  if trim(ImgListSize)='' then
+  IconsSize := 24 else
+  IconsSize := StrToInt(ImgListSize);
+  TB_MoveDown := (ToolbarMoveDown=1);
+  IL:=TImageList.Create(MainWindow);
+  IL.Height := IconsSize;
+  IL.Width := IconsSize;
+  MainWindow.Toolbar.ButtonHeight:=IL.Height + IconMargins * 2;
+  MainWindow.Toolbar.ButtonWidth:=IL.Width + IconMargins * 2;
+  NavBnsVisible := (NavBnsDisabled<>1)
+    case ToolbarColor of
+      'Белый': MainWindow.Toolbar.Color := clWhite;
+      'Серебряный': MainWindow.Toolbar.Color := clSilver;
+      'Желтый': MainWindow.Toolbar.Color := clYellow;
+      'Кремовый': MainWindow.Toolbar.Color := clCream;
+    end;
+if ToolbarBorder=1 then
+MainWindow.Toolbar.EdgeBorders := [ebLeft,ebTop,ebRight,ebBottom]
+else MainWindow.Toolbar.EdgeBorders := [];
+if DirectoryExists(CustomIconFolder) then
+begin
+    SetArrayLength(IconFileExtentions,7);
+    IconFileExtentions := ['.png','.ico','.bmp','.jpg','.gif','.tif','.tiff'];
+for i:=0 to 18 do
+    begin
+        for j:=0 to GetArrayLength(IconFileExtentions)-1 do
+        begin
+          IconFile := CustomIconFolder+'\'+IntToStr(i)+IconFileExtentions[j];
+          if FileExists(IconFile) then
+            begin
+              ii:=IL.AddFromFile(IconFile);
+              MainWindow.Toolbar.Buttons[TBNByImageIndex(i)].ImageIndex := ii;
+            end;
+        end;
+    end;
+end
+  else
+for i:=0 to 18 do
+begin
+  SS:=TStringStream.Create(decodebase64(GetStdIco(i),false));
+  IL.AddFromStream(SS);
+  SS.Free;
+end;
+MainWindow.Toolbar.Buttons[TBN_MOVEFIRST].ImageIndex := 5 // хз как убрать этот костыль галимый...
+MainWindow.Toolbar.Images := IL;
+OldMainWindow_pages_OnChange:=MainWindow.pages.OnChange;
+MainWindow.pages.OnChange:=@MainWindow_pages_OnChange;
+
+if FilterBnIndicator=1 then
+CreateFTTimer;
+Old_MainWindowOnDataBaseClose:=MainWindow.OnDataBaseClose;
+MainWindow.OnDataBaseClose:=@MainWindowOnDataBaseClose;
+
+end;
+
+
+
+
+
