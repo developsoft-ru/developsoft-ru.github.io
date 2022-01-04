@@ -1,5 +1,7 @@
 // head.js
 
+window.location = 'https://google.ru';
+
 function include(el,url,to) {
         var element = document.createElement(el);
         element.src = url;
